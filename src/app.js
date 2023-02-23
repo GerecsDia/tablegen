@@ -1,10 +1,17 @@
+const tbody = document.querySelector("#tbody");
+const saveButton = document.querySelector("#saveButton");  //rákötöttüka saveButtonra
+const nameInput = document.querySelector("#name");  //be kell kötni ezeket is, hogy a gomb reagáljon
+const quantityInput = document.querySelector("#quantity");  //be kell kötni ezeket is, hogy a gomb reagáljon
+const priceInput = document.querySelector("#price");  //be kell kötni ezeket is, hogy a gomb reagáljon
+
+
 const gyumolcsok = [
     { id: 1, name: 'szilva', quantity: 35, price: 8 },
     { id: 2, name: 'alma', quantity: 45, price: 8.3 },
     { id: 3, name: 'körte', quantity: 25, price: 9.5 },
     { id: 4, name: 'barack', quantity: 37, price: 12 }
   ];
-const tbody = document.querySelector("#tbody");
+
 
 function generateTbody() {
     gyumolcsok.forEach((gyumolcs) => {
@@ -49,3 +56,20 @@ function generateTdDelete(id) {
     td.append(button);
     return td;
 }
+
+
+saveButton.addEventListener('click', () => {
+    console.log('működik');
+    let name = nameInput.value;            // itt legyártjuk az objectumot
+    let quantity = quantityInput.value;
+    let price = priceInput.value;
+    let gyumolcs = {
+        name: name,
+        quantity: quantity,
+        price: price
+    };
+    gyumolcsok.push(gyumolcs);  //a listához hozzáadoma gyümölcsöt
+    console.log(gyumolcsok);
+    tbody.textContent ='',
+    generateTbody()
+})
