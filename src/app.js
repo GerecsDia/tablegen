@@ -113,6 +113,25 @@ function generateTdEdit(fruit) {
     return td;
 }
 
+function createFruit(fruit) {
+    let endpoint = 'fruits';
+    let url = host + endpoint;
+
+    fetch(url, {                    //a fetch lekérdezésnél átadjuk az url-t
+        method: 'post',
+        body: JSON.stringify(fruit),                   //át kell adni a body-t is (sztringesítve)
+        headers: {
+            "Content-Type": "application/json"
+        }
+
+    })
+    .then(response => response.json())            //ha megkaptuk választ, egy névtelen függvényben futtassa a json-t
+    .then(result => {
+        console.log(result)
+    });
+
+
+}
 
 
 saveButton.addEventListener('click', () => {
@@ -125,11 +144,12 @@ saveButton.addEventListener('click', () => {
         quantity: quantity,
         price: price
     };
-    gyumolcsok.push(gyumolcs);  //a listához hozzáadom a gyümölcsöt
-    console.log(gyumolcsok);
-    tbody.textContent ='',     
-    generateTbody();
-    clearFieldOnAddModel();   //itt hívjuk meg 
+    createFruit(gyumolcs);                  //meghívjuk, majd átadjuk neki a gyumolcs-ot
+
+    tbody.textContent ='',  
+    getFruits();   
+    //generateTbody();
+    clearFieldOnAddModel();          //itt hívjuk meg 
 });
 
 function clearFieldOnAddModel() {    //itt mondjuk meg, ezzel a függvénnyel, hogy törlődjön az adat mentés után az ablakból
