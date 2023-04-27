@@ -183,6 +183,15 @@ saveEditButton.addEventListener('click', () => {
     let quantity = editquantityInput.value;
     let price = editpriceInput.value;
 
+    let fruit = {
+        id: id, 
+        name: name,
+        quantity: quantity,
+        price: price
+    }
+
+    updateFruit(fruit);
+
     gyumolcsok.forEach((gyumolcs)=>{      //megy a gyümölcs lista bejárása... s amikor egyenlő 
         console.log(gyumolcs.name)
         if (gyumolcs.id == id) {
@@ -197,4 +206,21 @@ saveEditButton.addEventListener('click', () => {
 
     
 });
+
+function updateFruit(fruit) {
+    let endpoint = 'fruits';
+    let url = host + endpoint + "/" + fruit.id;
+    let headers = {
+        "Content-Type": "application/json"
+    } 
+    fetch(url, {                //átadjuk az url-t
+        method: 'PUT',
+        body: JSON.stringify(fruit),
+        headers: headers
+    })
+    .then(res => res.json())
+    .then(res => {
+        console.log(res)
+    });        
+}
 
